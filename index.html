@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XMELBARBER | Barbería Moderna</title>
+  <style>
+    /* --- ESTILOS GENERALES --- */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #ffff;
+  color: #e6e6e6;
+  overflow-x: hidden;
+}
+
+/* --- COLORES PREMIUM --- */
+:root {
+  --gold: #d4af37;
+  --gold-light: #f5d778;
+  --black: #0d0d0d;
+  --dark: #111;
+  --soft-dark: #1a1a1a;
+}
+
+/* --- BOTÓN HAMBURGUESA --- */
+.menu-toggle {
+  display: block;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: var(--black);
+  color: var(--gold);
+  font-size: 26px;
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 50%;
+  z-index: 1001;
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-toggle:hover {
+  transform: scale(1.15);
+  background-color: var(--gold);
+  color: var(--black);
+  box-shadow: 0 0 18px rgba(212, 175, 55, 0.8);
+}
+
+/* --- MENÚ LATERAL (LUJO) --- */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #0d0d0d, #1a1a1a);
+  border-right: 2px solid var(--gold);
+  color: var(--gold-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50px;
+  position: fixed;
+  height: 100%;
+  left: -260px;
+  top: 0;
+  transition: left 0.4s ease;
+  z-index: 1000;
+  box-shadow: 3px 0 15px rgba(0,0,0,0.6);
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar h2 {
+  margin-bottom: 40px;
+  font-size: 24px;
+  color: var(--gold);
+  letter-spacing: 3px;
+}
+
+.menu a {
+  display: block;
+  color: #ddd;
+  text-decoration: none;
+  margin: 18px 0;
+  font-size: 19px;
+  transition: 0.3s;
+  letter-spacing: 1px;
+}
+
+.menu a:hover {
+  color: var(--gold);
+  transform: translateX(6px);
+}
+
+/* --- CONTENIDO PRINCIPAL --- */
+.main-content {
+  padding: 60px 70px;
+  transition: margin-left 0.4s ease;
+}
+
+.main-content.shift {
+  margin-left: 260px;
+}
+
+/* --- SECCIONES --- */
+section {
+  margin-bottom: 100px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- HERO PARALLAX PREMIUM --- */
+.hero {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.9)),
+              url('logos/WhatsApp Image 2025-11-05 at 9.32.55 AM (1).jpeg') center/cover fixed no-repeat;
+  color: #fff;
+  padding: 160px 30px;
+  border-radius: 18px;
+  text-align: center;
+  text-shadow: 0 0 15px rgba(0,0,0,0.9);
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+.hero h1 {
+  font-size: 70px;
+  margin-bottom: 25px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+.hero p {
+  font-size: 24px;
+  color: #f5f5f5;
+}
+
+/* --- GRID DE TARJETAS PREMIUM --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
+}
+
+.card {
+  background: linear-gradient(145deg, #111, #1d1d1d);
+  border-radius: 15px;
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 8px 30px rgba(249, 248, 248, 0.6);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.5);
+  border-color: var(--gold);
+}
+
+.card img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  filter: brightness(0.9);
+}
+
+.card h3 {
+  font-size: 22px;
+  color: var(--gold-light);
+  margin: 15px 0 8px;
+}
+
+.card p {
+  font-size: 16px;
+  color: #ccc;
+  padding: 0 12px 12px;
+}
+
+/* --- SECCIÓN DE PRODUCTOS PARALLAX --- */
+#productos {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.9)),
+              url('logos/fondo-productos.jpg') center/cover fixed no-repeat;
+  color: white;
+  padding: 90px 40px;
+  border-radius: 18px;
+  border: 2px solid rgba(212,175,55,0.3);
+  box-shadow: 0 0 25px rgba(212,175,55,0.3);
+}
+
+#productos h2 {
+  color: var(--gold-light);
+}
+
+/* --- TÍTULOS DE SECCIÓN PREMIUM --- */
+section h2 {
+  font-size: 34px;
+  text-align: center;
+  color: var(--gold-light);
+  text-transform: uppercase;
+  margin-bottom: 45px;
+  letter-spacing: 2px;
+}
+
+section h2::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 4px;
+  background: var(--gold);
+  margin: 12px auto 0;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--gold);
+}
+
+/* --- FOOTER --- */
+footer {
+  text-align: center;
+  padding: 30px;
+  background-color: var(--black);
+  color: #ccc;
+  border-top: 2px solid var(--gold);
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 80px 25px;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+
+  .hero p {
+    font-size: 18px;
+  }
+
+  section h2 {
+    font-size: 26px;
+  }
+}
+
+  </style>
+</head>
+<body>
+<!-- CHATBOT SIMPLE -->
+<div id="chatbot">
+  <div id="chatbot-header">💬 Asistente XMELBARBER</div>
+  <div id="chatbot-body">
+    <div id="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Escribe tu pregunta..." />
+  </div>
+</div>
+
+<style>
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  max-height: 420px;
+  background-color: #0d0d0d;
+  color: white;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 25px rgba(212,175,55,0.4);
+  font-family: 'Poppins', sans-serif;
+  z-index: 2000;
+}
+
+#chatbot-header {
+  background-color: var(--gold);
+  color: #111;
+  padding: 12px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.chatbot-message.user {
+  background-color: var(--gold);
+  color: #111;
+}
+
+.chatbot-message.bot {
+  background-color: #1a1a1a;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+
+</style>
+
+<script>
+  
+  const chatbot = document.getElementById('chatbot');
+  const chatbotHeader = document.getElementById('chatbot-header');
+  const messages = document.getElementById('chatbot-messages');
+  const input = document.getElementById('chatbot-input');
+
+  // Alternar visibilidad
+  chatbotHeader.addEventListener('click', () => {
+    if(chatbot.style.height === '50px') {
+      chatbot.style.height = '400px';
+    } else {
+      chatbot.style.height = '50px';
+    }
+  });
+
+  // Respuestas automáticas básicas
+  const knowledgeBase = [
+    { question: /servicios|corte|barba/i, answer: "Ofrecemos Corte de Niño, Corte Premium, Corte y Barba, Corte VIP y Corte y Barba VIP." },
+    { question: /productos|cera|gel|minoxidil/i, answer: "Contamos con Cera XMEL, Cera EROS VERSACE, Minoxidil y Gel de Linaza." },
+    { question: /barberos|personal|equipo/i, answer: "Nuestro equipo incluye a Melvin, Alex, Rosa, Rafa y Alan. Cada uno tiene experiencia y disponibilidad para atenderte." },
+    { question: /horario|hora/i, answer: "Nuestro horario es de Lunes a Sábado, 11:00 AM - 8:00 PM y algunos barberos también los Domingos de 13:00 PM - 8:00 PM." },
+    { question: /precio|costo/i, answer: "Los precios varían desde $160 hasta $500 según el servicio o producto." },
+    { question: /contacto|teléfono/i, answer: "Puedes contactar a cada barbero directamente por teléfono o visitarnos en nuestra barbería XMELBARBER." }
+  ];
+
+  function addMessage(content, sender) {
+    const msg = document.createElement('div');
+    msg.classList.add('chatbot-message', sender);
+    msg.textContent = content;
+    messages.appendChild(msg);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  input.addEventListener('keypress', (e) => {
+    if(e.key === 'Enter' && input.value.trim() !== '') {
+      const userMsg = input.value.trim();
+      addMessage(userMsg, 'user');
+
+      let found = false;
+      for(const item of knowledgeBase) {
+        if(item.question.test(userMsg)) {
+          addMessage(item.answer, 'bot');
+          found = true;
+          break;
+        }
+      }
+
+      if(!found) {
+        addMessage("Lo siento, no entendí tu pregunta. Intenta con 'servicios', 'productos', 'barberos' o 'horario'.", 'bot');
+      }
+
+      input.value = '';
+    }
+  });
+</script>
+
+  <!-- BOTÓN HAMBURGUESA -->
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+
+  <!-- MENÚ LATERAL OCULTO -->
+  <div class="sidebar" id="sidebar">
+    <h2>XMELBARBER</h2>
+    <div class="menu">
+      <a href="#inicio">Inicio</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#productos">Productos</a>
+      <a href="#barberos">Barberos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#ubicacion">Ubicación</a>
+      <a href="#redes">Redes Sociales</a>
+    </div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main-content" id="main-content">
+    
+    <section id="inicio" class="hero">
+      <h1>Bienvenido a XMELBARBER</h1>
+      <p>"Tu imagen, nuestro arte."</p>
+    </section>
+
+    <section id="servicios">
+      <h2> Nuestros Servicios</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="cortes/niño.jpeg" alt="Corte Clásico">
+          <h3>Corte de Niño Regular</h3>
+          <p>Corte clásico y limpio para los más pequeños.</p>
+          <p><strong>Precio:</strong> $160.00</p>
+        </div>
+        <div class="card">
+          <img src="cortes/premium.jpeg" alt="Afeitado Premium">
+          <h3>Corte Premium</h3>
+          <p>Estilo detallado con acabado profesional.</p>
+          <p><strong>Precio:</strong> $180.00</p>
+        </div>
+        <div class="card">
+          <img src="cortes/barba.jpeg" alt="Diseños">
+          <h3>Corte y Barba</h3>
+          <p>Corte moderno con perfilado y arreglo de barba.</p>
+          <p><strong>Precio:</strong> $230.00</p>
+        </div>
+        <div class="card">
+          <img src="cortes/vip.jpeg" alt="Diseños">
+          <h3>Corte VIP</h3>
+          <p>Experiencia completa con diseño y cuidado personalizado.</p>
+          <p><strong>Precio:</strong> $230.00</p>
+        </div>
+        <div class="card">
+          <img src="cortes/barbe vip.jpeg" alt="Diseños">
+          <h3>Corte y Barba VIP</h3>
+          <p>Servicio exclusivo con corte de precisión y barba impecable.</p>
+          <p><strong>Precio:</strong> $300.00</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="productos">
+  <h2>Productos Destacados</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.55 AM (3).jpeg" alt="Cera Capilar">
+      <h3>Cera XMEL</h3>
+      <p>Fijación fuerte a base de agua</p>
+      <p><strong>Precio:</strong> $180.00</p>
+    </div>
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.55 AM (4).jpeg" alt="Cera Capilar">
+      <h3>Cera EROS VERSACE</h3>
+      <p>Fijación fuerte con aroma</p>
+      <p><strong>Precio:</strong> $180.00</p>
+    </div>
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.36 AM.jpeg" alt="Aceite para Barba">
+      <h3>Minoxidil</h3>
+      <p>Tratamiento tópico para ayudar al crecimiento de cabello o barba.</p>
+      <p><strong>Precio:</strong> $500.00</p>
+    </div>
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.36 AM (1).jpeg" alt="Aceite para Barba">
+      <h3>Gel de Linaza</h3>
+      <p>Gel natural a base de linaza que fija, humecta y da brillo al cabello sin apelmazar.</p>
+      <p><strong>Precio:</strong> $180.00</p>
+    </div>
+    <!-- NUEVOS PRODUCTOS AGREGADOS -->
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.36 AM (3).jpeg" alt="Aceite para Barba">
+      <h3>Pomada de Niño</h3>
+      <p>Pomada suave pensada para cabello infantil, que da estilo ligero y control sin rigidez ni aspecto pesado.</p>
+      <p><strong>Precio:</strong> $180.00</p>
+    </div>
+    <div class="card">
+      <img src="productos/WhatsApp Image 2025-11-05 at 9.32.36 AM (2).jpeg" alt="Aceite para Barba">
+      <h3>Polvo de Textura</h3>
+      <p>Polvo liviano para peinar que aporta volumen, textura y acabado mate al cabello, ideal para estilos modernos.</p>
+      <p><strong>Precio:</strong> $250.00</p>
+    </div>
+    <div class="card">
+      <img src="productos/invitus.jpeg" alt="Aceite para Barba">
+      <h3>Cera Invitus</h3>
+      <p>Hidratación profunda y aroma varonil.</p>
+      <p><strong>Precio:</strong> $180.00</p>
+    </div>
+  </div>
+</section>
+
+    </section>
+
+    <!-- BARBEROS (SIN CAMBIOS) -->
+      <section id="barberos">
+  <h2>Conoce a Nuestros Barberos</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="personal/WhatsApp Image 2025-10-27 at 6.31.08 PM (1).jpeg" alt="Barbero 1">
+      <h3>Melvin</h3>
+      <p><strong>Teléfono:</strong> 5515127659</p>
+      <p><strong>Horario:</strong> Lunes a Sábado, 11:00 AM - 8:00 PM</p>
+      <p><strong>Especialidad:</strong> Cortes de alta calidad</p>
+    </div>
+
+    <div class="card">
+      <img src="personal/rosa.jpeg" alt="Barbero 3">
+      <h3>Rosa</h3>
+      <p><strong>Teléfono:</strong> 5548625357</p>
+      <p><strong>Horario:</strong> Lunes a Domingo, 13:00 PM - 8:00 PM</p>
+      <p><strong>Especialidad:</strong> Corte y barba personalizado</p>
+    </div>
+
+    <div class="card">
+      <img src="personal/rafa.jpeg" alt="Barbero 4">
+      <h3>Rafa</h3>
+      <p><strong>Teléfono:</strong> 5573413665</p>
+      <p><strong>Horario:</strong> Lunes a Domingo, 13:00 PM - 8:00 PM</p>
+      <p><strong>Especialidad:</strong> Creación de drecas </p>
+    </div>
+
+    <div class="card">
+      <img src="personal/alan.jpg" alt="Barbero 5">
+      <h3>Alan</h3>
+      <p><strong>Teléfono:</strong> 5538055654</p>
+      <p><strong>Horario:</strong> Lunes a Domingo, 13:00 PM - 8:00 PM</p>
+      <p><strong>Especialidad:</strong> Cortes Clasicos</p>
+    </div>
+  </div>
+</section>
+<!-- SECCIÓN DE UBICACIÓN -->
+<section id="ubicacion">
+  <h2>Encuéntranos</h2>
+  <div style="text-align:center; margin-top:20px;">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3758.3329209423982!2d-98.93870052394134!3d19.613059681705245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ef76a1f4f70f%3A0x521bff5b960fba7d!2sXMEL%20BARBERSHOP%20%26%20SPA!5e0!3m2!1ses-419!2smx!4v1763568419504!5m2!1ses-419!2smx" 
+      width="100%" 
+      height="450" 
+      style="border:0; border-radius:15px;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+  <p style="text-align:center; margin-top:10px;">Dirección: Calle Ejemplo 123, Ciudad, Estado, México</p>
+  <p style="text-align:center;">Teléfono: 55-1234-5678</p>
+</section>
+<!-- ✅ NUEVA SECCIÓN: REDES SOCIALES -->
+<section id="redes">
+  <h2>Síguenos en Redes Sociales</h2>
+  <p style="text-align:center; font-size:18px; color:#333; margin-bottom:30px;">
+    Conéctate con <strong>XMELBARBER</strong> para más información, promociones y nuevos estilos.
+  </p>
+  <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;">
+    <a href="https://www.facebook.com/share/1Axewrubda/" target="_blank" style="text-decoration:none; color:#111; text-align:center;">
+      <img src="logos/facebook.jpg" alt="Facebook" style="width:100px; height:100px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);"><br>
+      <span>Facebook</span>
+    </a>
+    <a href="https://www.instagram.com/xmelbarber?igsh=MW84NGo0eTJnZ2doag==" target="_blank" style="text-decoration:none; color:#111; text-align:center;">
+      <img src="logos/Insta.jpg" alt="Instagram" style="width:100px; height:100px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);"><br>
+      <span>Instagram</span>
+    </a>
+    <a href="https://wa.me/5215515127659" target="_blank" style="text-decoration:none; color:#111; text-align:center;">
+      <img src="logos/Whats.jpg" alt="WhatsApp" style="width:100px; height:100px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);"><br>
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://www.tiktok.com/@melhuertafarias?_r=1&_t=ZS-91LSD9r5HUu" target="_blank" style="text-decoration:none; color:#111; text-align:center;">
+      <img src="logos/Tiktok.jpg" alt="TikTok" style="width:100px; height:100px; border-radius:50%; box-shadow:0 4px 10px rgba(0,0,0,0.2);"><br>
+      <span>TikTok</span>
+    </a>
+  </div>
+</section>
+
+    <footer>
+      &copy; 2025 XMELBARBER. Todos los derechos reservados.
+    </footer>
+
+  </div>
+<!-- ✅ SECCIÓN NUEVA: GALERÍA -->
+<section id="galeria">
+  <h2>Galería</h2>
+  <div class="grid">
+    <div class="card"><img src="galeria/1.jpg" alt="Galería 1"></div>
+    <div class="card"><img src="galeria/2.jpg" alt="Galería 2"></div>
+    <div class="card"><img src="galeria/3.jpg" alt="Galería 3"></div>
+    <div class="card"><img src="galeria/4.jpg" alt="Galería 4"></div>
+    <div class="card"><img src="galeria/5.jpg" alt="Galería 5"></div>
+    <div class="card"><img src="galeria/6.jpg" alt="Galería 6"></div>
+    <div class="card"><img src="galeria/7.jpg" alt="Galería 7"></div>
+    <div class="card"><img src="galeria/8.jpg" alt="Galería 8"></div>
+    <div class="card"><img src="galeria/10.jpg" alt="Galería 8"></div>
+    <div class="card"><img src="galeria/11.jpg" alt="Galería 8"></div>
+    <div class="card"><img src="galeria/12.jpg" alt="Galería 8"></div>
+    <div class="card"><img src="galeria/13.jpg" alt="Galería 8"></div>
+  </div>
+</section>
+
+  <script>
+    const toggleButton = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
+    const sections = document.querySelectorAll('section');
+
+    toggleButton.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+      mainContent.classList.toggle('shift');
+    });
+
+    // Animación de aparición al hacer scroll
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
+<script>
+  // Ocultar todas las secciones excepto la portada
+  const allSections = document.querySelectorAll('section');
+  allSections.forEach(sec => {
+    if(sec.id !== 'inicio') sec.style.display = 'none';
+  });
+
+  // Función para mostrar solo la sección seleccionada
+  const menuLinks = document.querySelectorAll('.menu a');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+
+      allSections.forEach(sec => {
+        if(sec.id === targetId) sec.style.display = 'block';
+        else sec.style.display = 'none';
+      });
+
+      // Cerrar el sidebar al seleccionar
+      sidebar.classList.remove('active');
+      mainContent.classList.remove('shift');
+
+      // Scroll a la sección
+      document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+<!-- MODAL PARA IMÁGENES -->
+<div id="imageModal" style="display:none; position:fixed; z-index:3000; top:0; left:0; width:100%; height:100%; background-color: rgba(0,0,0,0.8); justify-content:center; align-items:center;">
+  <span id="closeModal" style="position:absolute; top:20px; right:30px; font-size:40px; color:white; cursor:pointer;">&times;</span>
+  <img id="modalImg" src="" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 6px 20px rgba(0,0,0,0.5);" />
+</div>
+
+<script>
+  // Seleccionamos todas las imágenes dentro de las tarjetas
+  const images = document.querySelectorAll('.card img');
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImg');
+  const closeModal = document.getElementById('closeModal');
+
+  images.forEach(img => {
+    img.style.cursor = 'pointer'; // Cambia el cursor al pasar por la imagen
+    img.addEventListener('click', () => {
+      modal.style.display = 'flex'; // Mostramos el modal
+      modalImg.src = img.src;       // Colocamos la misma imagen en el modal
+    });
+  });
+
+  // Cerrar el modal al hacer clic en la X
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  // También cerrar al hacer clic fuera de la imagen
+  modal.addEventListener('click', (e) => {
+    if(e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+</script>
+
+</body>
+</html> 
